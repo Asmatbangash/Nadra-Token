@@ -1,5 +1,5 @@
 import dotenv from 'dotenv'
-import ConnectedDb from './src/db/db.connection.js'
+import ConnectedDb from './db/db.connection.js'
 
 dotenv.config()
 
