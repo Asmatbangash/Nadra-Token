@@ -1,4 +1,4 @@
-class apiResponse extends Error{
+class apiResponse{
     constructor(statusCode, data, message){
         this.statusCode = statusCode;
         this.data = data;
