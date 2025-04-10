@@ -12,4 +12,9 @@ app.use(cors({
 }))
 
 
+// routes
+import { router } from './routes/userRegister.route.js'
+app.use('/api/v1/user',router)
+
+
 export {app}

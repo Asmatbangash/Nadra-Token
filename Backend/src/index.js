@@ -2,7 +2,7 @@ import dotenv from 'dotenv'
 import ConnectedDb from './db/db.connection.js'
 import { app } from './app.js'
 
-dotenv.config()
+dotenv.config({path: '../.env'})
 const port = process.env.PORT || 8080;
 
 
