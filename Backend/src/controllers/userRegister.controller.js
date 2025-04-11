@@ -1,8 +1,8 @@
 
 
-const userRegister = async (err, req, res, next) =>{
+const userRegister = async (req, res, next) =>{
    res.status(200).json({
-    message: "welcome"
+      message: 'welcome to test the api'
    })
 }
 

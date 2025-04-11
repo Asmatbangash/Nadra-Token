@@ -7,7 +7,7 @@ app.use(express.static('public'))
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 app.use(cors({
-    origin: 'http://example.com',
+    origin: process.env.ORIGIN,
     optionsSuccessStatus: 200
 }))
 
