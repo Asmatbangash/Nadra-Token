@@ -25,7 +25,7 @@ function Banner() {
         </ul>
         <Link to='/generat-token'>
         <Button
-          className="cursor-pointer bg-lime-900 hover:bg-lime-950 active:border active:border-lime-900 rounded-md duration-100 p-2 text-white mt-7" type="button" text="Click here to Generate Token"
+          className="cursor-pointer bg-[#00C951] hover:bg-[#00a951] active:border active:border-lime-900 rounded-md duration-100 p-2 text-white mt-7" type="button" text="Click here to Generate Token"
         />
         </Link>
       </div>
