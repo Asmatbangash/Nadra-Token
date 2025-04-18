@@ -1,0 +1,28 @@
+# Ignore build output
+build/
+dist/
+
+# Ignore dependencies
+node_modules/
+
+# Ignore coverage reports
+coverage/
+
+# Ignore environment files
+.env
+.env.*
+
+# Ignore specific config files
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Ignore public assets
+public/
+
+# Ignore compiled code
+*.min.js
+*.min.css
+
+# Ignore logs
+*.log
