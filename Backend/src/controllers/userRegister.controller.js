@@ -8,35 +8,39 @@ const userRegister = async (req, res, next) =>{
   // validaion 
   // find the user in database
   
-  const {userName, email, password, fullName} = req.body
-  console.log(userName, email, password, fullName)
-  
-  if([userName, email, password, fullName].some((field) => field?.trim() === "")){
-   throw new apiError(400,"all fields are required")
-  }
-
-  
-  const existedUser = await User.findOne({
-    $or: [{ userName }, { email }]
-  })
-  
-  if(existedUser){
-    throw new apiError(409, 'userName & email already exist!')
-  }
-  const user = await User.create({
-     userName,
-     email,
-     password,
-     fullName
+ try {
+   const {userName, email, password, fullName} = req.body
+   console.log(userName, email, password, fullName)
+   
+   if([userName, email, password, fullName].some((field) => field?.trim() === "")){
+    throw new apiError(400,"all fields are required")
+   }
+ 
+   
+   const existedUser = await User.findOne({
+     $or: [{ userName }, { email }]
    })
-
-  const createdUser = await User.findById(user._id).select("-password")
-
-  if(!createdUser){
-    throw new apiError(500, "interval server error while register user")
-  }
-
-  return res.status(201).json(new apiResponse(200, createdUser, "user register successfully!") )
+   
+   if(existedUser){
+     throw new apiError(409, 'userName & email already exist!')
+   }
+   const user = await User.create({
+      userName,
+      email,
+      password,
+      fullName
+    })
+ 
+   const createdUser = await User.findById(user._id).select("-password")
+ 
+   if(!createdUser){
+     throw new apiError(500, "interval server error while register user")
+   }
+ 
+   return res.status(201).json(new apiResponse(200, createdUser, "user register successfully!") )
+ } catch (error) {
+      console.log(error)
+ }
 }
 
 export {userRegister}
