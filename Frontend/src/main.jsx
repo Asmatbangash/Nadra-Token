@@ -12,7 +12,7 @@ const router = createBrowserRouter([
   {path: '/about', element: <About/>},
   {path: '/tokens', element: <Token/>},
   {path: '/contact-us', element: <Contact/>},
-  {path: '/generat-token', element: <TokenForm />}
+  {path: '/token-generating-form', element: <TokenForm />}
 ]},
 {path: '/login', element: <Login/>},
 {path: '/sign-up', element: <SignUp/>},

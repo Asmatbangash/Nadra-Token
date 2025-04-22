@@ -23,7 +23,7 @@ function Banner() {
           <li>Say goodbye to unnecessary delays and generate your
           token online effortlessly</li>
         </ul>
-        <Link to='/generat-token'>
+        <Link to='/token-generating-form'>
         <Button
           className="cursor-pointer bg-[#00C951] hover:bg-[#00a951] active:border active:border-lime-900 rounded-md duration-100 p-2 text-white mt-7" type="button" text="Click here to Generate Token"
         />
