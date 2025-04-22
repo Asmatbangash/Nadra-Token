@@ -5,12 +5,12 @@ import { apiResponse } from "../utils/apiResponse.js"
 
 const userRegister = async (req, res, next) =>{
   // get data from frontend -> req.body
-  // validaion 
+  // check validaion 
   // find the user in database
+  // send the response
   
  try {
    const {userName, email, password, fullName} = req.body
-   console.log(userName, email, password, fullName)
    
    if([userName, email, password, fullName].some((field) => field?.trim() === "")){
     throw new apiError(400,"all fields are required")
@@ -22,7 +22,7 @@ const userRegister = async (req, res, next) =>{
    })
    
    if(existedUser){
-     throw new apiError(409, 'userName & email already exist!')
+     throw new apiError(409, 'userName or email already exist!')
    }
    const user = await User.create({
       userName,
