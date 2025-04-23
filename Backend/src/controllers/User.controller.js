@@ -2,7 +2,19 @@ import User from "../models/User.model.js"
 import { apiError } from "../utils/apiError.utils.js"
 import { apiResponse } from "../utils/apiResponse.js"
 
+// generate access and refresh token method
+const generateAccessAndRefreshToken = async(userId) =>{
+  const user = await User.findById(userId)
+  const accessToken = user.generateAccessToken()
+  const refreshToken = user.generateRefreshToken()
 
+  user.refreshToken = refreshToken
+  user.save({validateBeforeSave: false})
+
+  return {accessToken, refreshToken}
+}
+
+// user register controller 
 const userRegister = async (req, res, next) =>{
   // get data from frontend -> req.body
   // check validaion 
@@ -43,4 +55,57 @@ const userRegister = async (req, res, next) =>{
  }
 }
 
-export {userRegister}
+// user login controller
+const userLogin = async(req, res) =>{
+  //  steps
+  //  get data from -> req.body
+  //  check validation
+  //  find the user
+  // check password
+  // generate access and refresh tokens
+  // send cokies
+
+  const {userName, email, password} = req.body
+
+  if(!(userName || email)){
+    throw new apiError(401, 'userName or email is required')
+  }
+
+  const user = await User.findOne({
+    $or: [{ userName }, { email }]
+  })
+
+  const isPasswordValid = user.isPasswordCorrect(password)
+
+  if(!isPasswordValid){
+    throw new apiError(401, 'Invalid password!')
+  }
+
+ const {accessToken, refreshToken} = await generateAccessAndRefreshToken(user._id)
+ 
+ const loggedInUser = await User.findById(user._id).select("-password -refreshToken")
+
+ const option = {
+  httpOnly: true,
+  secure: true
+ }
+
+ res.status(200)
+ .cookie("accessToken", accessToken, option)
+ .cookie("refreshToken", refreshToken, option)
+ .json(
+  new apiResponse(
+    200, 
+    {
+      user: loggedInUser, accessToken, refreshToken
+    }, 
+    "user successfull loggedIn!"
+  )
+ )
+
+}
+
+export {
+  userRegister,
+  userLogin
+}
