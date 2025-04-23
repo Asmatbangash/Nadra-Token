@@ -1,4 +1,4 @@
-import User from "../models/UserRegister.model.js"
+import User from "../models/User.model.js"
 import { apiError } from "../utils/apiError.utils.js"
 import { apiResponse } from "../utils/apiResponse.js"
 
@@ -39,7 +39,7 @@ const userRegister = async (req, res, next) =>{
  
    return res.status(201).json(new apiResponse(200, createdUser, "user register successfully!") )
  } catch (error) {
-      console.log(error)
+      throw new apiError(500, 'there are some error in user registration...') 
  }
 }
 
