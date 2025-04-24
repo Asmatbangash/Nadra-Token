@@ -65,47 +65,77 @@ const userLogin = async(req, res) =>{
   // generate access and refresh tokens
   // send cokies
 
-  const {userName, email, password} = req.body
-
-  if(!(userName || email)){
-    throw new apiError(401, 'userName or email is required')
-  }
-
-  const user = await User.findOne({
-    $or: [{ userName }, { email }]
-  })
-
-  const isPasswordValid = user.isPasswordCorrect(password)
-
-  if(!isPasswordValid){
-    throw new apiError(401, 'Invalid password!')
-  }
-
- const {accessToken, refreshToken} = await generateAccessAndRefreshToken(user._id)
- 
- const loggedInUser = await User.findById(user._id).select("-password -refreshToken")
-
- const option = {
-  httpOnly: true,
-  secure: true
- }
-
- res.status(200)
- .cookie("accessToken", accessToken, option)
- .cookie("refreshToken", refreshToken, option)
- .json(
-  new apiResponse(
-    200, 
-    {
-      user: loggedInUser, accessToken, refreshToken
-    }, 
-    "user successfull loggedIn!"
-  )
- )
+try {
+    const {userName, email, password} = req.body
+  
+    if(!(userName || email)){
+      throw new apiError(401, 'userName or email is required')
+    }
+  
+    const user = await User.findOne({
+      $or: [{ userName }, { email }]
+    })
+  
+    const isPasswordValid = user.isPasswordCorrect(password)
+  
+    if(!isPasswordValid){
+      throw new apiError(401, 'Invalid password!')
+    }
+  
+   const {accessToken, refreshToken} = await generateAccessAndRefreshToken(user._id)
+   
+   const loggedInUser = await User.findById(user._id).select("-password -refreshToken")
+  
+   const option = {
+    httpOnly: true,
+    secure: true
+   }
+  
+   res.status(200)
+   .cookie("accessToken", accessToken, option)
+   .cookie("refreshToken", refreshToken, option)
+   .json(
+    new apiResponse(
+      200, 
+      {
+        user: loggedInUser, accessToken, refreshToken
+      }, 
+      "user successfull loggedIn!"
+    )
+   )
+} catch (error) {
+  throw new apiError(500, "there are some error in user login")
+}
 
 }
 
+// user logOut controller
+const userLogOut = async(req, res) =>{
+try {
+    await User.findByIdAndUpdate(req.user?._id, 
+      {
+        refreshToken: undefined
+      },
+      {
+        new: true
+      }
+    )
+  
+    const option = {
+      httpOnly: true,
+      secure: true
+    }
+  
+    return res
+    .clearCookie("accessToken", accessToken,option )
+    .clearCookie("refreshToken",refreshToken, option)
+    .json(new apiResponse(200, {}, "user logOut successfully!"))
+} catch (error) {
+  throw new apiError(500, "there are some error in user logOut")
+}
+}
 export {
   userRegister,
-  userLogin
+  userLogin,
+  userLogOut
 }
