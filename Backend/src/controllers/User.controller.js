@@ -21,7 +21,6 @@ const userRegister = async (req, res, next) =>{
   // find the user in database
   // send the response
   
- try {
    const {userName, email, password, fullName} = req.body
    
    if([userName, email, password, fullName].some((field) => field?.trim() === "")){
@@ -50,9 +49,7 @@ const userRegister = async (req, res, next) =>{
    }
  
    return res.status(201).json(new apiResponse(200, createdUser, "user register successfully!") )
- } catch (error) {
-      throw new apiError(500, 'there are some error in user registration...') 
- }
+ 
 }
 
 // user login controller
@@ -65,7 +62,7 @@ const userLogin = async(req, res) =>{
   // generate access and refresh tokens
   // send cokies
 
-try {
+
     const {userName, email, password} = req.body
   
     if(!(userName || email)){
@@ -103,9 +100,6 @@ try {
       "user successfull loggedIn!"
     )
    )
-} catch (error) {
-  throw new apiError(500, "there are some error in user login")
-}
 
 }
 

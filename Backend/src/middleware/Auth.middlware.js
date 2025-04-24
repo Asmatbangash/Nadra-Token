@@ -1,23 +1,28 @@
-import User from "../models/User.model"
-import { apiError } from "../utils/apiError.utils"
+import User from "../models/User.model.js"
+import { apiError } from "../utils/apiError.utils.js"
 import jwt from 'jsonwebtoken'
 
 const verifyJwt = async(req, res, next) => {
- const token = req.cookie?.accessToken || req.header("Authorization")?.replace("Bearer ", "")
+ try {
+  const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "")
+  
+  if(!token){
+     throw new apiError(401, "unautherized request")
+  }
+
+  const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+  
+  const user = await User.findById(decodedToken?._id).select("-password -refreshToken")
  
- if(!token){
-    throw new apiError(401, "unautherized request")
+  if(!user){
+    throw new apiError(401, "unauthorized access token")
+  }
+ 
+  req.user = user
+  next()
+ } catch (error) {
+  throw new apiError(401, "Invalid access token")
  }
- const decodedToken = jwt.verify("accessToken", process.env.ACCESS_TOKEN_SECRET)
-
- const user = await User.findById(decodedToken?._id)
-
- if(!user){
-   throw new apiError(401, "unauthorized token")
- }
-
- req.user = user
- next()
 }
 
 export {
