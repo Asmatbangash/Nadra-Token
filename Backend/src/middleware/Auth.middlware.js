@@ -3,15 +3,14 @@ import { apiError } from "../utils/apiError.utils.js"
 import jwt from 'jsonwebtoken'
 
 const verifyJwt = async(req, res, next) => {
- try {
-  const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "")
+  const token = req.cookies.accessToken || req.header("Authorization").replace("Bearer ", "")
   
   if(!token){
      throw new apiError(401, "unautherized request")
   }
-
-  const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
-  
+   
+  const decodedToken =  jwt.verify(token,process.env.ACCESS_TOKEN_SECRETE)
+                        
   const user = await User.findById(decodedToken?._id).select("-password -refreshToken")
  
   if(!user){
@@ -20,9 +19,7 @@ const verifyJwt = async(req, res, next) => {
  
   req.user = user
   next()
- } catch (error) {
-  throw new apiError(401, "Invalid access token")
- }
+ 
 }
 
 export {

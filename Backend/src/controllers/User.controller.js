@@ -2,6 +2,12 @@ import User from "../models/User.model.js"
 import { apiError } from "../utils/apiError.utils.js"
 import { apiResponse } from "../utils/apiResponse.js"
 
+// change cookies only vai backend
+const options = {
+  httpOnly: true,
+  secure: true
+}
+
 // generate access and refresh token method
 const generateAccessAndRefreshToken = async(userId) =>{
   const user = await User.findById(userId)
@@ -80,17 +86,12 @@ const userLogin = async(req, res) =>{
     }
   
    const {accessToken, refreshToken} = await generateAccessAndRefreshToken(user._id)
-   
+   console.log(accessToken, "  token  ", refreshToken)
    const loggedInUser = await User.findById(user._id).select("-password -refreshToken")
   
-   const option = {
-    httpOnly: true,
-    secure: true
-   }
-  
    res.status(200)
-   .cookie("accessToken", accessToken, option)
-   .cookie("refreshToken", refreshToken, option)
+   .cookie("accessToken", accessToken, options)
+   .cookie("refreshToken", refreshToken, options)
    .json(
     new apiResponse(
       200, 
@@ -105,28 +106,23 @@ const userLogin = async(req, res) =>{
 
 // user logOut controller
 const userLogOut = async(req, res) =>{
-try {
     await User.findByIdAndUpdate(req.user?._id, 
       {
-        refreshToken: undefined
+        $unset: {
+          refreshToken: 1
+        }
       },
       {
         new: true
       }
     )
   
-    const option = {
-      httpOnly: true,
-      secure: true
-    }
   
     return res
-    .clearCookie("accessToken", accessToken,option )
-    .clearCookie("refreshToken",refreshToken, option)
+    .clearCookie("accessToken", options)
+    .clearCookie("refreshToken", options)
     .json(new apiResponse(200, {}, "user logOut successfully!"))
-} catch (error) {
-  throw new apiError(500, "there are some error in user logOut")
-}
+
 }
 export {
   userRegister,

@@ -5,6 +5,6 @@ const router = Router()
 
 router.route('/register').post(userRegister)
 router.route('/logIn').post(userLogin)
-router.route('/logOut').get(verifyJwt,userLogOut)
+router.route('/logOut').post(verifyJwt,userLogOut)
 
 export {router}
