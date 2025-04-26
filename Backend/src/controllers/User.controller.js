@@ -1,6 +1,7 @@
 import User from "../models/User.model.js"
 import { apiError } from "../utils/apiError.utils.js"
 import { apiResponse } from "../utils/apiResponse.js"
+import { asyncHandler } from "../utils/asyncHandler.js"
 
 // change cookies only vai backend
 const options = {
@@ -21,7 +22,7 @@ const generateAccessAndRefreshToken = async(userId) =>{
 }
 
 // user register controller 
-const userRegister = async (req, res, next) =>{
+const userRegister = asyncHandler(async (req, res, next) =>{
   // get data from frontend -> req.body
   // check validaion 
   // find the user in database
@@ -56,10 +57,10 @@ const userRegister = async (req, res, next) =>{
  
    return res.status(201).json(new apiResponse(200, createdUser, "user register successfully!") )
  
-}
+})
 
 // user login controller
-const userLogin = async(req, res) =>{
+const userLogin = asyncHandler(async(req, res) =>{
   //  steps
   //  get data from -> req.body
   //  check validation
@@ -102,10 +103,10 @@ const userLogin = async(req, res) =>{
     )
    )
 
-}
+})
 
 // user logOut controller
-const userLogOut = async(req, res) =>{
+const userLogOut = asyncHandler(async(req, res) =>{
     await User.findByIdAndUpdate(req.user?._id, 
       {
         $unset: {
@@ -123,7 +124,7 @@ const userLogOut = async(req, res) =>{
     .clearCookie("refreshToken", options)
     .json(new apiResponse(200, {}, "user logOut successfully!"))
 
-}
+})
 export {
   userRegister,
   userLogin,
