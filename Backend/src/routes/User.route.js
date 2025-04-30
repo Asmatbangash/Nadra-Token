@@ -8,7 +8,7 @@ router.route('/logIn').post(userLogin)
 router.route('/logOut').post(verifyJwt,userLogOut)
 router.route('/refresh-token').post(refreshAccessToken)
 router.route('/current-user').get(verifyJwt, getCurrentUser)
-router.route('/change-password').post(verifyJwt, changeCurrentUserPassword)
-router.route('/change-acount-detail').post(verifyJwt,changeAcountDetail)
+router.route('/change-password').patch(verifyJwt, changeCurrentUserPassword)
+router.route('/change-acount-detail').patch(verifyJwt,changeAcountDetail)
 
 export {router}
