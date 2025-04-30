@@ -3,6 +3,7 @@ import { userRegister, userLogin, userLogOut, refreshAccessToken, getCurrentUser
 import { verifyJwt } from '../middleware/Auth.middlware.js'
 const router = Router()
 
+// user routes
 router.route('/register').post(userRegister)
 router.route('/logIn').post(userLogin)
 router.route('/logOut').post(verifyJwt,userLogOut)
