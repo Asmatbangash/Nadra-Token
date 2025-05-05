@@ -1,4 +1,5 @@
 import { Token } from "../models/Token.model.js";
+import User from "../models/User.model.js";
 import { apiError } from "../utils/apiError.utils.js";
 import { apiResponse } from "../utils/apiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
@@ -17,9 +18,11 @@ const generateToken = asyncHandler(async(req, res, next) =>{
         throw new apiError(400,"all fields are required!..." )
     }
 
+    const user = await User.findById(req.user?._id).select("-email -password -fullName")
     const latestToken = await Token.findOne().sort({ TokenNo: -1 });
     const TokenNo = latestToken ? latestToken.TokenNo + 1 : 1;
     const token = await Token.create({
+        user: user,
         Name: Name,
         FatherName: FatherName,
         ContactNo: ContactNo,
@@ -38,13 +41,18 @@ const generateToken = asyncHandler(async(req, res, next) =>{
 
 // Update token detail
 const updateToken = asyncHandler(async(req, res, next) => {
+    const {id} = req.params
     const {Name, FatherName, ContactNo} = req.body
+    console.log(Name, FatherName, ContactNo)
      
     if(!(Name || FatherName || ContactNo)){
         throw new apiError(400, 'fields are required...')
     }
+    
+    const tokenDetail = await Token.findById(id)
+    console.log(tokenDetail)
 
- const updateTokenDetail = await Token.findByIdAndUpdate(user.req?._id, 
+ const updateTokenDetail = await Token.findByIdAndUpdate(id, 
         {
             $set:{
                 Name: Name,
@@ -56,6 +64,8 @@ const updateToken = asyncHandler(async(req, res, next) => {
             new: true
         }
     )
+
+    console.log(updateTokenDetail)
 
     return res
     .status(200)

@@ -1,22 +1,19 @@
 import{ Router } from 'express'
 import { userRegister, userLogin, userLogOut, refreshAccessToken, getCurrentUser, changeCurrentUserPassword, changeAcountDetail } from '../controllers/User.controller.js'
 import { verifyJwt } from '../middleware/Auth.middlware.js'
-import { generateToken, updateToken } from '../controllers/Token.controller.js'
-const router = Router()
+const userRoute = Router()
 
 // user routes
-router.route('/register').post(userRegister)
-router.route('/logIn').post(userLogin)
-router.route('/logOut').post(verifyJwt,userLogOut)
-router.route('/refresh-token').post(refreshAccessToken)
-router.route('/current-user').get(verifyJwt, getCurrentUser)
-router.route('/change-password').patch(verifyJwt, changeCurrentUserPassword)
-router.route('/change-acount-detail').patch(verifyJwt,changeAcountDetail)
-
-// Token routes
-router.route('/generate-token').post(verifyJwt,generateToken)
-router.route('/update-token-detail').patch(verifyJwt,updateToken)
+userRoute.route('/register').post(userRegister)
+userRoute.route('/logIn').post(userLogin)
+userRoute.route('/logOut').post(verifyJwt,userLogOut)
+userRoute.route('/refresh-token').post(refreshAccessToken)
+userRoute.route('/current-user').get(verifyJwt, getCurrentUser)
+userRoute.route('/change-password').patch(verifyJwt, changeCurrentUserPassword)
+userRoute.route('/change-acount-detail').patch(verifyJwt,changeAcountDetail)
 
 
 
-export {router}
+
+
+export {userRoute}
