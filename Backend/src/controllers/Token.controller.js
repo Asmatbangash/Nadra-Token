@@ -43,15 +43,11 @@ const generateToken = asyncHandler(async(req, res, next) =>{
 const updateToken = asyncHandler(async(req, res, next) => {
     const {id} = req.params
     const {Name, FatherName, ContactNo} = req.body
-    console.log(Name, FatherName, ContactNo)
      
     if(!(Name || FatherName || ContactNo)){
         throw new apiError(400, 'fields are required...')
     }
     
-    const tokenDetail = await Token.findById(id)
-    console.log(tokenDetail)
-
  const updateTokenDetail = await Token.findByIdAndUpdate(id, 
         {
             $set:{
@@ -64,8 +60,6 @@ const updateToken = asyncHandler(async(req, res, next) => {
             new: true
         }
     )
-
-    console.log(updateTokenDetail)
 
     return res
     .status(200)
