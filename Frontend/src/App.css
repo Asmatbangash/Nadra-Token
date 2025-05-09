@@ -1,0 +1,11 @@
+body{
+    background: url('../src/assets/bg.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: "Marcellus", serif;
+    font-weight: 400;
+    font-style: normal;
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+}
