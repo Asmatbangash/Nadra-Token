@@ -7,6 +7,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { MdGeneratingTokens } from "react-icons/md";
 import Button from "../Button/Button";
 import { Link } from "react-router-dom";
+import Login from "../../Pages/Login/Login";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -65,12 +66,12 @@ function Header() {
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 text-white space-x-3">
-            <Link to="/login">
-              <Button
-                text="Login"
-                className="cursor-pointer flex items-cent active:border active:border-lime-400 rounded-md duration-100 p-2"
-              />
-            </Link>
+            <Button
+              text="Login"
+              className="cursor-pointer flex items-cent active:border active:border-lime-400 rounded-md duration-100 p-2"
+              onClick={() => document.getElementById("my_modal_3").showModal()}
+            />
+            <Login />
             <Link to="/sign-up">
               <Button
                 text="SignUp"

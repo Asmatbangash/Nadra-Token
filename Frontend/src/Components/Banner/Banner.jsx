@@ -1,5 +1,5 @@
 import { line } from "../../assets/img_index.js";
-import { Button } from "../../Components/Comp_index.js";
+import { Button, TokenForm } from "../../Components/Comp_index.js";
 
 function Banner() {
   return (
@@ -22,7 +22,12 @@ function Banner() {
             A fast and simple way to get your NADRA token online — no more
             waiting in long lines. Book your token in seconds from anywhere!
           </p>
-          <Button className="btn btn-primary" text="click me!" />
+          <Button
+            className="btn btn-primary"
+            text="click me!"
+            onClick={() => document.getElementById("token-form").showModal()}
+          />
+          <TokenForm />
         </div>
       </div>
     </div>

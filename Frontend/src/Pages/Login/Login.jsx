@@ -1,96 +1,85 @@
-import  React from "react"
-import { useState } from "react"
-import { LoginPic } from "../../assets/img_index.js"
-import { Input, Button } from "../../Components/Comp_index.js"
-import { Link } from "react-router-dom"
+import React from "react";
+import { useState } from "react";
+import { LoginPic } from "../../assets/img_index.js";
+import { Input, Button } from "../../Components/Comp_index.js";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-  })
+  });
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log("Form submitted:", formData)
+    e.preventDefault();
+    console.log("Form submitted:", formData);
     // Add your form submission logic here
-  }
+  };
 
   return (
-    <div className="min-h-100 bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 mb-5">
-      <div className="max-w-6xl mx-auto">
-        <div className="bg-green-900 text-white  rounded-2xl shadow-xl overflow-hidden">
-          <div className="grid md:grid-cols-2">
-            {/* Left side - Form */}
-            <div className="p-8">
-              <div className="mb-8">
-                <h2 className="text-3xl font-bold  mb-2">Login Form</h2>
-                <p className="">Please fill in your details below</p>
-              </div>
-
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium mb-2">
-                    Full Name
+    <>
+      <dialog id="my_modal_3" className="modal">
+        <div className="modal-box bg-green-800">
+          <form method="dialog">
+            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 bg-black text-white">
+              ✕
+            </button>
+          </form>
+          <div class="flex flex-col items-center justify-center dark">
+            <div class="w-full max-w-md bg-green-800 rounded-lg shadow-md p-6">
+              <h2 class="text-2xl font-bold text-gray-200 mb-4">Login</h2>
+              <form class="flex flex-col">
+                <input
+                  placeholder="Email address"
+                  class="bg-green-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-green-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                  type="email"
+                />
+                <input
+                  placeholder="Password"
+                  class="bg-green-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-green-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                  type="password"
+                />
+                <div class="flex items-center justify-between flex-wrap">
+                  <label
+                    class="text-sm text-gray-200 cursor-pointer"
+                    for="remember-me"
+                  >
+                    <input class="mr-2" id="remember-me" type="checkbox" />
+                    Remember me
                   </label>
-                  <Input
-                    id="name"
-                    name="name"
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-300 outline-none"
-                    placeholder="Enter your full name"
-                  />
+                  <a
+                    class="text-sm text-blue-400 hover:underline mb-0.5"
+                    href="#"
+                  >
+                    Forgot password?
+                  </a>
+                  <p class="text-white mt-4">
+                    {" "}
+                    Don't have an account?{" "}
+                    <a
+                      class="text-sm text-blue-400 -200 hover:underline mt-4"
+                      href="#"
+                    >
+                      Signup
+                    </a>
+                  </p>
                 </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium  mb-2">
-                    Email
-                  </label>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-300 outline-none"
-                    placeholder="Enter your father's name"
-                  />
-                </div>
-                <div>
-                  <p>Don't have account! <Link to='/sign-up' className="underline text-blue-400">Sign-up</Link></p>
-                </div>
-
-                <Button
+                <button
+                  class="bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-2 px-4 rounded-md mt-4 hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150"
                   type="submit"
-                  className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors duration-300 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" text="Login"
-                />
-                  
+                >
+                  Login
+                </button>
               </form>
-            </div>
-
-            {/* Right side - Image */}
-            <div className="bg-gray-100 hidden items-center justify-center p-8 md:flex">
-              <div className="relative w-full h-full min-h-[400px]">
-                <img
-                  src={LoginPic}
-                  alt="Token"
-                  className="object-cover w-full h-full  rounded-lg shadow-md"
-                />
-              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  )
+      </dialog>
+    </>
+  );
 }
-
