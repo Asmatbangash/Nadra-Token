@@ -5,10 +5,10 @@ import { Input, Button } from "../../Components/Comp_index.js";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
+import { Login } from "../Index.js";
 
 export default function SignUp() {
   const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState();
   const [formData, setFormData] = useState({
     fullName: "",
     userName: "",
@@ -38,7 +38,6 @@ export default function SignUp() {
     } catch (error) {
       const errorMsg =
         error?.response?.data || "Something went wrong. Please try again.";
-      setErrorMessage(errorMsg);
       toast.error(errorMsg);
     }
   };
@@ -81,7 +80,7 @@ export default function SignUp() {
                     required
                     value={formData.fullName}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-300 outline-none"
+                    className="w-full p-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-300 outline-none"
                     placeholder="Enter your full name"
                   />
                 </div>
@@ -99,7 +98,7 @@ export default function SignUp() {
                     required
                     value={formData.userName}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-300 outline-none"
+                    className="w-full p-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-300 outline-none"
                     placeholder="Enter userName"
                   />
                 </div>
@@ -118,7 +117,7 @@ export default function SignUp() {
                     required={true}
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-300 outline-none"
+                    className="w-full p-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-300 outline-none"
                     placeholder="Enter your father's name"
                   />
                 </div>
@@ -137,16 +136,22 @@ export default function SignUp() {
                     required={true}
                     value={formData.password}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-300 outline-none"
+                    className="w-full p-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-300 outline-none"
                     placeholder="Enter your phone password"
                   />
                 </div>
                 <div>
                   <p>
                     already have account!{" "}
-                    <Link to="/login" className="underline text-blue-400">
+                    <a
+                      onClick={() =>
+                        document.getElementById("my_modal_3").showModal()
+                      }
+                      className="underline text-blue-400 cursor-pointer"
+                    >
                       login
-                    </Link>
+                    </a>
+                    <Login />
                   </p>
                 </div>
 

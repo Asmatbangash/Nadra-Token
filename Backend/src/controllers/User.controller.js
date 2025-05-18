@@ -1,12 +1,11 @@
 import User from '../models/User.model.js';
-import { apiError } from '../utils/apiError.utils.js';
 import { apiResponse } from '../utils/apiResponse.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
 import jwt from 'jsonwebtoken';
 
 // change cookies only vai backend
 const options = {
-  httpOnly: true,
+  httpOnly: false,
   secure: true,
 };
 
@@ -34,7 +33,7 @@ const userRegister = asyncHandler(async (req, res, next) => {
   if (
     [userName, email, password, fullName].some(field => field?.trim() === '')
   ) {
-    return res.status(400).json(new apiError(400, 'all fields are required'));
+    return res.status(400).json({ message: 'all fields are required' });
   }
 
   const existedUser = await User.findOne({
@@ -79,9 +78,7 @@ const userLogin = asyncHandler(async (req, res) => {
   const { userName, email, password } = req.body;
 
   if (!(userName || email)) {
-    return res
-      .status(400)
-      .json(new apiError(401, 'username or email is required'));
+    return res.status(400).json({ message: 'username or email is required' });
   }
 
   const user = await User.findOne({
@@ -89,15 +86,13 @@ const userLogin = asyncHandler(async (req, res) => {
   });
 
   if (!user) {
-    return res
-      .status(401)
-      .json(new apiError(401, 'invalid email or username!...'));
+    return res.status(401).json({ message: 'invalid email or username!...' });
   }
 
   const isPasswordValid = await user.isPasswordCorrect(password);
 
   if (!isPasswordValid) {
-    return res.status(400).json(new apiError(401, 'Invalid password!'));
+    return res.status(400).json({ message: 'Invalid password!' });
   }
 
   const { accessToken, refreshToken } = await generateAccessAndRefreshToken(
@@ -150,7 +145,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
   const inComingRefreshToken =
     req.cookies.refreshToken || req.body.refreshToken;
   if (!inComingRefreshToken) {
-    return res.status(400).json((401, 'unauthorized refresh token'));
+    return res.status(400).json({ message: 'unauthorized refresh token' });
   }
 
   const decodedToken = jwt.verify(
@@ -161,11 +156,11 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
   const user = await User.findById(decodedToken?._id).select('-password');
 
   if (!user) {
-    return res.status(400).json((401, 'invalid refresh token'));
+    return res.status(400).json({ message: 'invalid refresh token' });
   }
 
   if (inComingRefreshToken !== user?.refreshToken) {
-    return res.status(400).json((401, 'the token is expired or used!'));
+    return res.status(400).json({ message: 'the token is expired or used!' });
   }
 
   const { accessToken, newRefreshToken } = await generateAccessAndRefreshToken(
@@ -197,16 +192,14 @@ const changeCurrentUserPassword = asyncHandler(async (req, res) => {
   const { oldPassword, newPassword } = req.body;
 
   if (!(oldPassword && newPassword)) {
-    return res
-      .status(400)
-      .json(new apiError(400, 'all fields are required!..'));
+    return res.status(400).json({ message: 'all fields are required!..' });
   }
 
   const user = await User.findById(req.user?._id);
 
   const isPasswordCorrect = await user.isPasswordCorrect(oldPassword);
   if (!isPasswordCorrect) {
-    return res.status(400).json(new apiError(400, 'invalid password'));
+    return res.status(400).json({ message: 'invalid password' });
   }
 
   req.user = newPassword;
@@ -222,9 +215,7 @@ const changeAcountDetail = asyncHandler(async (req, res) => {
   const { fullName, email } = req.body;
 
   if (!(fullName || email)) {
-    return res
-      .status(400)
-      .json(new apiError(400, 'all fields are required!...'));
+    return res.status(400).json({ message: 'all fields are required!...' });
   }
 
   const userChanges = await User.findByIdAndUpdate(

@@ -8,12 +8,15 @@ import { MdGeneratingTokens } from "react-icons/md";
 import Button from "../Button/Button";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import Login from "../../Pages/Login/Login";
+import { useContext } from "react";
+import { NadraTokenContext } from "../../Context/NadraTokenContext";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 function Header() {
+  const { user } = useContext(NadraTokenContext);
   const navigation = [
     { name: "Home", to: "/", current: true },
     { name: "About", to: "/about", current: false },
@@ -69,18 +72,21 @@ function Header() {
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 text-white space-x-3">
-            <Button
-              text="Login"
-              className="cursor-pointer flex items-cent active:border active:border-lime-400 rounded-md duration-100 p-2"
-              onClick={() => document.getElementById("my_modal_3").showModal()}
-            />
-            <Login />
-            <Link to="/sign-up">
+            {user ? (
               <Button
-                text="SignUp"
-                className="cursor-pointer flex items-cent border-1 border-b-lime-300 active:border active:border-lime-400 rounded-md duration-100 p-2"
+                text="LogOut"
+                className="cursor-pointer flex items-cent border-1 border-b-lime-300 active:border active:border-lime-400 rounded-md duration-100 py-1 px-3"
               />
-            </Link>
+            ) : (
+              <Button
+                text="Login"
+                className="cursor-pointer flex items-cent border-1 border-b-lime-300 active:border active:border-lime-400 rounded-md duration-100 py-1 px-3"
+                onClick={() =>
+                  document.getElementById("my_modal_3").showModal()
+                }
+              />
+            )}
+            <Login />
           </div>
         </div>
       </div>

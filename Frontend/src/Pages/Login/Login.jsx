@@ -1,13 +1,14 @@
-import React from "react";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Input, Button } from "../../Components/Comp_index.js";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
+import { NadraTokenContext } from "../../Context/NadraTokenContext.jsx";
+import Cookies from "js-cookie";
 
 export default function Login() {
+  const { login } = useContext(NadraTokenContext);
   const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -23,27 +24,39 @@ export default function Login() {
     try {
       const response = await axios.post(
         "http://localhost:8000/api/v1/user/login",
-        formData
+        formData,
+        {
+          withCredentials: true, // important for sending/receiving cookies
+        }
       );
       document.getElementById("my_modal_3").close();
       toast.success(response?.data?.message || "login successful!", {
         position: "top-center",
       });
+      setFormData({ email: "", password: "" });
       navigate("/");
+      setTimeout(() => {
+        window.location.reload();
+      }, 2700);
     } catch (error) {
-      console.log(error.response);
       const errorMsg =
-        error?.response?.data || "Something went wrong. Please try again.";
-      setErrorMessage(errorMsg);
+        error?.response?.data?.message ||
+        "Something went wrong. Please try again.";
       toast.error(errorMsg);
     }
   };
+
+  useEffect(() => {
+    const accessToken = Cookies.get("refreshToken"); // get cookie by name
+    login(accessToken);
+    console.log("accessToken:", accessToken);
+  }, []);
 
   return (
     <>
       <ToastContainer
         position="top-center"
-        autoClose={3000}
+        autoClose={1500}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -83,7 +96,7 @@ export default function Login() {
                 <div className="flex items-center justify-between flex-wrap">
                   <label
                     className="text-sm text-gray-200 cursor-pointer"
-                    for="remember-me"
+                    htmlFor="remember-me"
                   >
                     <Input className="mr-2" id="remember-me" type="checkbox" />
                     Remember me
@@ -99,7 +112,7 @@ export default function Login() {
                     Don't have an account?{" "}
                     <a
                       className="text-sm text-blue-400 -200 hover:underline mt-4"
-                      href="#"
+                      href="/sign-up"
                     >
                       Signup
                     </a>
