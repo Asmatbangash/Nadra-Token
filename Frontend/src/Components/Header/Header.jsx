@@ -6,7 +6,7 @@ import {
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { MdGeneratingTokens } from "react-icons/md";
 import Button from "../Button/Button";
-import { Link } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
 import Login from "../../Pages/Login/Login";
 
 function classNames(...classes) {
@@ -20,6 +20,8 @@ function Header() {
     { name: "Tokens", to: "/tokens", current: false },
     { name: "Contact", to: "/contact-us", current: false },
   ];
+
+  const location = useLocation();
   return (
     <Disclosure as="nav" className="bg-[#105b14]">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -46,22 +48,23 @@ function Header() {
             </Link>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-5 sm:space-x-0">
-                {navigation.map((item) => (
-                  <Link
-                    to={item.to}
-                    key={item.name}
-                    aria-current={item.current ? "page" : undefined}
-                    className={classNames(
-                      item.current
-                        ? " text-white"
-                        : "text-gray-300  hover:text-white",
-                      "rounded-md px-3 py-2 text-sm font-medium"
-                    )}
-                  >
-                    {console.log(item.to)}
-                    {item.name}
-                  </Link>
-                ))}
+                {navigation.map((item) => {
+                  const isActive = location.pathname === item.to;
+                  return (
+                    <NavLink
+                      to={item.to}
+                      key={item.name}
+                      className={classNames(
+                        isActive
+                          ? "text-white"
+                          : "text-gray-300 hover:text-white",
+                        "rounded-md px-3 py-2 text-sm font-medium"
+                      )}
+                    >
+                      {item.name}
+                    </NavLink>
+                  );
+                })}
               </div>
             </div>
           </div>

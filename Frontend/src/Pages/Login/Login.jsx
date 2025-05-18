@@ -1,13 +1,16 @@
 import React from "react";
 import { useState } from "react";
-import { LoginPic } from "../../assets/img_index.js";
 import { Input, Button } from "../../Components/Comp_index.js";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function Login() {
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState();
   const [formData, setFormData] = useState({
-    name: "",
     email: "",
+    password: "",
   });
 
   const handleChange = (e) => {
@@ -15,14 +18,41 @@ export default function Login() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    // Add your form submission logic here
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/user/login",
+        formData
+      );
+      document.getElementById("my_modal_3").close();
+      toast.success(response?.data?.message || "login successful!", {
+        position: "top-center",
+      });
+      navigate("/");
+    } catch (error) {
+      console.log(error.response);
+      const errorMsg =
+        error?.response?.data || "Something went wrong. Please try again.";
+      setErrorMessage(errorMsg);
+      toast.error(errorMsg);
+    }
   };
 
   return (
     <>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <dialog id="my_modal_3" className="modal">
         <div className="modal-box bg-green-800">
           <form method="dialog">
@@ -30,51 +60,56 @@ export default function Login() {
               ✕
             </button>
           </form>
-          <div class="flex flex-col items-center justify-center dark">
-            <div class="w-full max-w-md bg-green-800 rounded-lg shadow-md p-6">
-              <h2 class="text-2xl font-bold text-gray-200 mb-4">Login</h2>
-              <form class="flex flex-col">
-                <input
+          <div className="flex flex-col items-center justify-center dark">
+            <div className="w-full max-w-md bg-green-800 rounded-lg shadow-md p-6">
+              <h2 className="text-2xl font-bold text-gray-200 mb-4">Login</h2>
+              <form className="flex flex-col" onSubmit={handleSubmit}>
+                <Input
                   placeholder="Email address"
-                  class="bg-green-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-green-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                  className="bg-green-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-green-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
                   type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                 />
-                <input
+                <Input
                   placeholder="Password"
-                  class="bg-green-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-green-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                  className="bg-green-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-green-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                  name="password"
                   type="password"
+                  value={formData.password}
+                  onChange={handleChange}
                 />
-                <div class="flex items-center justify-between flex-wrap">
+                <div className="flex items-center justify-between flex-wrap">
                   <label
-                    class="text-sm text-gray-200 cursor-pointer"
+                    className="text-sm text-gray-200 cursor-pointer"
                     for="remember-me"
                   >
-                    <input class="mr-2" id="remember-me" type="checkbox" />
+                    <Input className="mr-2" id="remember-me" type="checkbox" />
                     Remember me
                   </label>
                   <a
-                    class="text-sm text-blue-400 hover:underline mb-0.5"
+                    className="text-sm text-blue-400 hover:underline mb-0.5"
                     href="#"
                   >
                     Forgot password?
                   </a>
-                  <p class="text-white mt-4">
+                  <p className="text-white mt-4">
                     {" "}
                     Don't have an account?{" "}
                     <a
-                      class="text-sm text-blue-400 -200 hover:underline mt-4"
+                      className="text-sm text-blue-400 -200 hover:underline mt-4"
                       href="#"
                     >
                       Signup
                     </a>
                   </p>
                 </div>
-                <button
-                  class="bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-2 px-4 rounded-md mt-4 hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150"
+                <Button
+                  className="bg-gradient-to-r from-green-500 to-green-500 text-white font-bold py-2 px-4 rounded-md mt-4 hover:bg-green-600 hover:to-green-600 transition ease-in-out duration-150"
                   type="submit"
-                >
-                  Login
-                </button>
+                  text="login"
+                />
               </form>
             </div>
           </div>

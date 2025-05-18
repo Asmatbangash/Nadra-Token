@@ -1,4 +1,4 @@
-import { line } from "../../assets/img_index.js";
+import { line11 } from "../../assets/img_index.js";
 import { Button, TokenForm } from "../../Components/Comp_index.js";
 
 function Banner() {
@@ -6,7 +6,7 @@ function Banner() {
     <div
       className="hero min-h-screen"
       style={{
-        backgroundImage: `url(${line})`,
+        backgroundImage: `url(${line11})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -23,8 +23,8 @@ function Banner() {
             waiting in long lines. Book your token in seconds from anywhere!
           </p>
           <Button
-            className="btn btn-primary"
-            text="click me!"
+            className="btn bg-green-900 rounded-sm text-white"
+            text="Generate Token"
             onClick={() => document.getElementById("token-form").showModal()}
           />
           <TokenForm />

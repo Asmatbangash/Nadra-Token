@@ -12,6 +12,7 @@ import SignUpPic from "./SignUp.jpg";
 import onlineToken from "./onlineToken.jpg";
 import timePic from "./time.jpg";
 import bg from "./bg.jpeg";
+import line11 from "./line11.jpg";
 
 export {
   card1,
@@ -28,4 +29,5 @@ export {
   onlineToken,
   timePic,
   bg,
+  line11,
 };
