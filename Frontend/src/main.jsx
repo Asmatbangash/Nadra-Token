@@ -4,8 +4,8 @@ import "./index.css";
 import App from "./App.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Home, About, Token, Contact, Login, SignUp } from "./Pages/Index.js";
-import { TokenForm } from "./Components/Comp_index.js";
 import ContextProvider from "./Context/NadraTokenContext.jsx";
+import Dashbaord from "./Pages/Dashbaord/Dashbaord.jsx";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +16,7 @@ const router = createBrowserRouter([
       { path: "/about", element: <About /> },
       { path: "/tokens", element: <Token /> },
       { path: "/contact-us", element: <Contact /> },
-      { path: "/token-generating-form", element: <TokenForm /> },
+      { path: "/dashboard", element: <Dashbaord /> },
     ],
   },
   { path: "/login", element: <Login /> },

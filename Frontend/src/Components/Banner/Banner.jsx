@@ -1,4 +1,4 @@
-import { line11 } from "../../assets/img_index.js";
+import { line1 } from "../../assets/img_index.js";
 import { Button, TokenForm } from "../../Components/Comp_index.js";
 
 function Banner() {
@@ -6,7 +6,7 @@ function Banner() {
     <div
       className="hero min-h-screen"
       style={{
-        backgroundImage: `url(${line11})`,
+        backgroundImage: `url(${line1})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",

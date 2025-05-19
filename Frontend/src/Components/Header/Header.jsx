@@ -18,10 +18,11 @@ function classNames(...classes) {
 function Header() {
   const { user } = useContext(NadraTokenContext);
   const navigation = [
-    { name: "Home", to: "/", current: true },
-    { name: "About", to: "/about", current: false },
-    { name: "Tokens", to: "/tokens", current: false },
-    { name: "Contact", to: "/contact-us", current: false },
+    { name: "Home", to: "/" },
+    { name: "About", to: "/about" },
+    { name: "Tokens", to: "/tokens" },
+    { name: "Contact", to: "/contact-us" },
+    { name: "Dashbaord", to: "/dashboard" },
   ];
 
   const location = useLocation();

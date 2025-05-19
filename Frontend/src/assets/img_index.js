@@ -6,13 +6,13 @@ import card5 from "./JunilaCard.png";
 import card6 from "./NationalCard.png";
 import card7 from "./overses.png";
 import card8 from "./success.png";
-import line from "./line.png";
+import line from "./line.jpg";
 import LoginPic from "./Login.jpg";
 import SignUpPic from "./SignUp.jpg";
 import onlineToken from "./onlineToken.jpg";
 import timePic from "./time.jpg";
 import bg from "./bg.jpeg";
-import line11 from "./line11.jpg";
+import line1 from "./line1.png";
 
 export {
   card1,
@@ -29,5 +29,5 @@ export {
   onlineToken,
   timePic,
   bg,
-  line11,
+  line1,
 };
