@@ -12,10 +12,11 @@ const generateToken = asyncHandler(async (req, res, next) => {
   // if come then generate token
   // and then send response
 
-  const { Name, FatherName, ContactNo } = req.body;
+  const { fullName, fatherName, contactNo } = req.body;
+  console.log(fullName, fatherName, contactNo);
 
-  if ([Name, FatherName, ContactNo].some(fields => fields.trim() === '')) {
-    return res.status(400).json({ message: 'all fields are required!..' });
+  if ([fullName, fatherName, contactNo].some(field => field?.trim() === '')) {
+    return res.status(400).json({ message: 'all fields are required' });
   }
 
   const user = await User.findById(req.user?._id).select(
@@ -25,9 +26,9 @@ const generateToken = asyncHandler(async (req, res, next) => {
   const TokenNo = latestToken ? latestToken.TokenNo + 1 : 1;
   const token = await Token.create({
     user: user,
-    Name: Name,
-    FatherName: FatherName,
-    ContactNo: ContactNo,
+    Name: fullName,
+    FatherName: fatherName,
+    ContactNo: contactNo,
     TokenNo,
   });
 

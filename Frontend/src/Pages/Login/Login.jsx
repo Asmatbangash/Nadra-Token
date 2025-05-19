@@ -3,11 +3,8 @@ import { Input, Button } from "../../Components/Comp_index.js";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
-import { NadraTokenContext } from "../../Context/NadraTokenContext.jsx";
-import Cookies from "js-cookie";
 
 export default function Login() {
-  const { login } = useContext(NadraTokenContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -29,15 +26,13 @@ export default function Login() {
           withCredentials: true, // important for sending/receiving cookies
         }
       );
-      document.getElementById("my_modal_3").close();
-      toast.success(response?.data?.message || "login successful!", {
-        position: "top-center",
-      });
+      toast.success(response?.data?.message || "login successful!");
       setFormData({ email: "", password: "" });
       navigate("/");
+      document.getElementById("my_modal_3").close();
       setTimeout(() => {
         window.location.reload();
-      }, 2700);
+      }, 2200);
     } catch (error) {
       const errorMsg =
         error?.response?.data?.message ||
@@ -46,17 +41,11 @@ export default function Login() {
     }
   };
 
-  useEffect(() => {
-    const accessToken = Cookies.get("refreshToken"); // get cookie by name
-    login(accessToken);
-    console.log("accessToken:", accessToken);
-  }, []);
-
   return (
     <>
       <ToastContainer
         position="top-center"
-        autoClose={1500}
+        autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

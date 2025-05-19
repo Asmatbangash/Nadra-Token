@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 
 // change cookies only vai backend
 const options = {
-  httpOnly: false,
+  httpOnly: true,
   secure: true,
 };
 
@@ -60,8 +60,14 @@ const userRegister = asyncHandler(async (req, res, next) => {
       .json((500, 'interval server error while register user'));
   }
 
+  const { accessToken, refreshToken } = await generateAccessAndRefreshToken(
+    createdUser._id
+  );
+
   return res
     .status(201)
+    .cookie('accessToken', accessToken, options)
+    .cookie('refreshToken', refreshToken, options)
     .json(new apiResponse(200, createdUser, 'user register successfully!'));
 });
 

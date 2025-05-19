@@ -1,5 +1,5 @@
 import React from "react";
-import { line, timePic, onlineToken } from "../../assets/img_index.js";
+import { line, timePic, onlineToken } from "../../assets/img_index";
 import { Card } from "../../Components/Comp_index";
 
 function About() {
