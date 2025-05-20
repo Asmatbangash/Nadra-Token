@@ -22,7 +22,7 @@ function Header() {
   const navigation = [
     { name: "Home", to: "/" },
     { name: "About", to: "/about" },
-    { name: "Tokens", to: "/tokens" },
+    ...(user ? [{ name: "Tokens", to: "/tokens" }] : []),
     { name: "Contact", to: "/contact-us" },
     { name: "Dashbaord", to: "/dashboard" },
   ];

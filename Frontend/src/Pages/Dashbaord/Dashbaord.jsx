@@ -1,16 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { TokenCard } from "../../Components/Comp_index";
+import { NadraTokenContext } from "../../Context/NadraTokenContext";
 function Dashbaord() {
-  const tokens = [
-    { Name: "Ahmad", FatherName: "Muhammad", TokenNo: "1" },
-    { Name: "Zaid", FatherName: "Abdullah", TokenNo: "2" },
-    { Name: "Hassan", FatherName: "Umar", TokenNo: "3" },
-    { Name: "Bilal", FatherName: "Yusuf", TokenNo: "4" },
-    { Name: "Ali", FatherName: "Khalid", TokenNo: "5" },
-  ];
+  const { allToken } = useContext(NadraTokenContext);
   return (
     <div className="flex flex-wrap justify-center items-center space-x-3 space-y-3 mt-4 mb-15">
-      {tokens.map((token) => (
+      {allToken.map((token) => (
         <>
           <TokenCard token={token} />
         </>

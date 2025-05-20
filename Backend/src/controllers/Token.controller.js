@@ -1,6 +1,5 @@
 import { Token } from '../models/Token.model.js';
 import User from '../models/User.model.js';
-import { apiError } from '../utils/apiError.utils.js';
 import { apiResponse } from '../utils/apiResponse.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
 
@@ -37,6 +36,34 @@ const generateToken = asyncHandler(async (req, res, next) => {
     .json(new apiResponse(200, token, 'Token genereted successfully!'));
 });
 
+// get token
+const getToken = asyncHandler(async (req, res, next) => {
+  const userTokens = await Token.find({ user: req.user._id });
+
+  if (userTokens.length === 0) {
+    return res.status(404).json({ message: 'No tokens found for this user.' });
+  }
+
+  return res
+    .status(200)
+    .json(new apiResponse(200, userTokens, 'Tokens successfully fetched!'));
+});
+
+// get all token for admin
+const getAllTokenForAdmin = asyncHandler(async (req, res, next) => {
+  const allToken = await Token.find();
+
+  if (allToken.length === 0) {
+    return res
+      .status(404)
+      .json({ message: 'There are no token Generated Yet!.' });
+  }
+
+  return res
+    .status(200)
+    .json(new apiResponse(200, allToken, 'All Token successfully fetched!'));
+});
+
 // Update token detail
 const updateToken = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
@@ -71,4 +98,4 @@ const updateToken = asyncHandler(async (req, res, next) => {
     );
 });
 
-export { generateToken, updateToken };
+export { generateToken, updateToken, getToken, getAllTokenForAdmin };
