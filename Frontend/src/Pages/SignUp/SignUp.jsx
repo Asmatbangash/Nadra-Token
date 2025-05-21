@@ -26,7 +26,10 @@ export default function SignUp() {
     try {
       const response = await axios.post(
         "http://localhost:8000/api/v1/user/register",
-        formData
+        formData,
+        {
+          withCredentials: true,
+        }
       );
       setFormData({ fullName: "", userName: "", email: "", password: "" });
       toast.success(response?.data?.message || "Registration successful!", {
@@ -34,7 +37,8 @@ export default function SignUp() {
       });
       setTimeout(() => {
         navigate("/");
-      }, 4000);
+        window.location.reload();
+      }, 2500);
     } catch (error) {
       const errorMsg =
         error?.response?.data || "Something went wrong. Please try again.";
@@ -151,8 +155,8 @@ export default function SignUp() {
                     >
                       login
                     </a>
-                    <Login />
                   </p>
+                  <Login />
                 </div>
 
                 <Button

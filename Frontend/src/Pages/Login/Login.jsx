@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { Input, Button } from "../../Components/Comp_index.js";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 
@@ -28,9 +28,9 @@ export default function Login() {
       );
       toast.success(response?.data?.message || "login successful!");
       setFormData({ email: "", password: "" });
-      navigate("/");
       document.getElementById("my_modal_3").close();
       setTimeout(() => {
+        navigate("/");
         window.location.reload();
       }, 2200);
     } catch (error) {
@@ -68,7 +68,7 @@ export default function Login() {
               <form className="flex flex-col" onSubmit={handleSubmit}>
                 <Input
                   placeholder="Email address"
-                  className="bg-green-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-green-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                  className="bg-green-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-green-600 focus:outline-none focus:ring-1 focus:ring-green-500 transition ease-in-out duration-150"
                   type="email"
                   name="email"
                   value={formData.email}

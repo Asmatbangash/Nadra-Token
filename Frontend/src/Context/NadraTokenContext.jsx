@@ -3,12 +3,14 @@ import { createContext, useEffect, useState } from "react";
 
 export const NadraTokenContext = createContext({
   user: [],
-  tokens: [],
+  role: [],
+  currentUserTokens: [],
   allToken: [],
 });
 
 function ContextProvider({ children }) {
   const [user, setUser] = useState();
+  const [role, setRole] = useState();
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
@@ -17,6 +19,7 @@ function ContextProvider({ children }) {
           { withCredentials: true } // Include this if your route requires cookies
         );
         setUser(response.data);
+        setRole(response.data?.data?.role);
       } catch (error) {
         console.error("There was an error fetching the current user:", error);
       }
@@ -25,7 +28,7 @@ function ContextProvider({ children }) {
     fetchCurrentUser();
   }, []);
 
-  const [tokens, setTokens] = useState([]);
+  const [currentUserTokens, setCurrentUserTokens] = useState([]);
   useEffect(() => {
     const fetchTokens = async () => {
       try {
@@ -33,13 +36,13 @@ function ContextProvider({ children }) {
           "http://localhost:8000/api/v1/token/get-tokens",
           { withCredentials: true } // Include this if your route requires cookies
         );
-        setTokens(response.data?.data);
+        setCurrentUserTokens(response.data?.data);
       } catch (error) {
         console.error("There was an error fetching the current user:", error);
       }
     };
     fetchTokens();
-  }, [tokens]);
+  }, [currentUserTokens]);
 
   const [allToken, setAllToken] = useState([]);
   useEffect(() => {
@@ -55,10 +58,12 @@ function ContextProvider({ children }) {
       }
     };
     fetchAllTokens();
-  });
+  }, []);
 
   return (
-    <NadraTokenContext.Provider value={{ user, tokens, allToken }}>
+    <NadraTokenContext.Provider
+      value={{ user, currentUserTokens, allToken, role }}
+    >
       {children}
     </NadraTokenContext.Provider>
   );

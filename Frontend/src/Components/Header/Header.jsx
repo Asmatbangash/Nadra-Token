@@ -18,13 +18,13 @@ function classNames(...classes) {
 }
 
 function Header() {
-  const { user } = useContext(NadraTokenContext);
+  const { user, role } = useContext(NadraTokenContext);
   const navigation = [
     { name: "Home", to: "/" },
     { name: "About", to: "/about" },
     ...(user ? [{ name: "Tokens", to: "/tokens" }] : []),
     { name: "Contact", to: "/contact-us" },
-    { name: "Dashbaord", to: "/dashboard" },
+    ...(role === "admin" ? [{ name: "Dashbaord", to: "/dashboard" }] : []),
   ];
 
   const handlLogOut = async (e) => {

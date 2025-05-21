@@ -12,7 +12,6 @@ const generateToken = asyncHandler(async (req, res, next) => {
   // and then send response
 
   const { fullName, fatherName, contactNo } = req.body;
-  console.log(fullName, fatherName, contactNo);
 
   if ([fullName, fatherName, contactNo].some(field => field?.trim() === '')) {
     return res.status(400).json({ message: 'all fields are required' });

@@ -3,6 +3,7 @@ import { line1 } from "../../assets/img_index.js";
 import { Button, TokenForm } from "../../Components/Comp_index.js";
 import { NadraTokenContext } from "../../Context/NadraTokenContext.jsx";
 import { ToastContainer, toast } from "react-toastify";
+import Login from "../../Pages/Login/Login.jsx";
 
 function Banner() {
   const { user } = useContext(NadraTokenContext);
@@ -11,6 +12,9 @@ function Banner() {
       document.getElementById("token-form").showModal();
     } else {
       toast.error("please login before generating Token!");
+      setTimeout(() => {
+        document.getElementById("my_modal_3").showModal();
+      }, 2200);
     }
   };
   return (
@@ -52,6 +56,7 @@ function Banner() {
               onClick={handlOnclick}
             />
             <TokenForm />
+            <Login />
           </div>
         </div>
       </div>

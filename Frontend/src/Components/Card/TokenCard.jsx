@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { NadraTokenContext } from "../../Context/NadraTokenContext";
 
 function TokenCard({ token }) {
+  const { role } = useContext(NadraTokenContext);
   const [showMenu, setShowMenu] = useState(false);
 
   const handleEdit = () => {
@@ -36,22 +38,24 @@ function TokenCard({ token }) {
             <div className="absolute right-0 mt-1 bg-white text-black rounded shadow-lg z-30 w-28">
               <button
                 onClick={handleEdit}
-                className="block w-full text-left px-4 py-2 hover:bg-gray-200"
+                className="block w-full text-left px-4 py-2 hover:bg-green-600"
               >
                 Edit
               </button>
               <button
                 onClick={handleDelete}
-                className="block w-full text-left px-4 py-2 hover:bg-gray-200"
+                className="block w-full text-left px-4 py-2 hover:bg-green-600"
               >
                 Delete
               </button>
-              <button
-                onClick={handleConfirm}
-                className="block w-full text-left px-4 py-2 hover:bg-gray-200"
-              >
-                Confirm
-              </button>
+              {role === "admin" ? (
+                <button
+                  onClick={handleConfirm}
+                  className="block w-full text-left px-4 py-2 hover:bg-green-600"
+                >
+                  Confirm
+                </button>
+              ) : null}
             </div>
           )}
         </div>
