@@ -57,7 +57,6 @@ function TokenCard({ token, id }) {
     setEditableFields({
       fullName: token.fullName,
       fatherName: token.fatherName,
-      serviceType: token.serviceType,
       contactNo: token.contactNo,
     });
     setIsEditing(true);
@@ -77,7 +76,7 @@ function TokenCard({ token, id }) {
         pauseOnHover
         theme="light"
       />
-      <div className="relative w-72 hover:scale-105 duration-200 mx-6">
+      <div className="relative min-w-72 hover:scale-105 duration-200 mx-6">
         <div className="absolute top-2 right-2 z-20">
           <div className="relative">
             <button
@@ -125,7 +124,7 @@ function TokenCard({ token, id }) {
           </div>
         </div>
 
-        <div className="flex flex-col items-center bg-green-900 w-80 h-auto pt-5 pb-7 border border-green-500 rounded-lg hover:scale-105 duration-200">
+        <div className="flex flex-col items-center bg-green-900 min-w-80 h-auto pt-5 pb-7 border border-green-500 rounded-lg hover:scale-105 duration-200">
           <section className="flex flex-col text-center space-y-1">
             <h2 className="text-2xl font-bold tracking-tight text-white">
               Nadra Token
@@ -135,43 +134,58 @@ function TokenCard({ token, id }) {
           <section className="space-y-2">
             <div className="flex gap-2">
               <Tekmark />
-              <label htmlFor="fullName" className="text-white">
-                FullName:
-              </label>
-              <Input
-                id="fullName"
-                name="fullName"
-                type="text"
-                value={editableFields.fullName}
-                onChange={(e) =>
-                  setEditableFields((prev) => ({
-                    ...prev,
-                    fullName: e.target.value,
-                  }))
-                }
-                className="text-white text-sm border-none outline-none bg-transparent"
-                readOnly={!isEditing}
-              />
+              {isEditing ? (
+                <>
+                  <label htmlFor="contactNo" className="text-white">
+                    FullName:
+                  </label>
+                  <Input
+                    id="fullName"
+                    name="fullName"
+                    type="text"
+                    required={true}
+                    value={editableFields.fullName}
+                    onChange={(e) =>
+                      setEditableFields((prev) => ({
+                        ...prev,
+                        fullName: e.target.value,
+                      }))
+                    }
+                    className="text-white text-sm border-1 outline-none bg-transparent"
+                  />
+                </>
+              ) : (
+                <span className="text-white text-sm">
+                  FullName: {token.fullName}
+                </span>
+              )}
             </div>
             <div className="flex gap-2">
               <Tekmark />
-              <label htmlFor="fatherName" className="text-white">
-                FatherName:
-              </label>
-              <Input
-                id="fatherName"
-                name="fatherName"
-                type="text"
-                value={editableFields.fatherName}
-                onChange={(e) =>
-                  setEditableFields((prev) => ({
-                    ...prev,
-                    fatherName: e.target.value,
-                  }))
-                }
-                className="text-white text-sm border-none outline-none bg-transparent"
-                readOnly={!isEditing}
-              />
+              {isEditing ? (
+                <>
+                  <label htmlFor="contactNo" className="text-white">
+                    FatherName:
+                  </label>
+                  <Input
+                    id="fatherName"
+                    name="fatherName"
+                    type="text"
+                    value={editableFields.fatherName}
+                    onChange={(e) =>
+                      setEditableFields((prev) => ({
+                        ...prev,
+                        fatherName: e.target.value,
+                      }))
+                    }
+                    className="text-white text-sm border-1 outline-none bg-transparent"
+                  />
+                </>
+              ) : (
+                <span className="text-white text-sm">
+                  FatherName: {token.fatherName}
+                </span>
+              )}
             </div>
             <div className="flex gap-2">
               <Tekmark />
@@ -196,6 +210,7 @@ function TokenCard({ token, id }) {
                     id="contactNo"
                     name="contactNo"
                     type="text"
+                    required={true}
                     minLength={11}
                     maxLength={11}
                     pattern="03[0-9]{9}"
@@ -206,7 +221,7 @@ function TokenCard({ token, id }) {
                         contactNo: e.target.value,
                       }))
                     }
-                    className="text-white text-sm border-none outline-none bg-transparent"
+                    className="text-white text-sm border-1 outline-none bg-transparent"
                   />
                 </>
               ) : (

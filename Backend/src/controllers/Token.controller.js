@@ -72,7 +72,7 @@ const updateToken = asyncHandler(async (req, res, next) => {
   const { fullName, fatherName, contactNo } = req.body;
 
   if (!(fullName || fatherName || contactNo)) {
-    return res.status(400).json({ message: 'there are some error in update' });
+    return res.status(400).json({ message: 'All fields are required' });
   }
 
   const updateTokenDetail = await Token.findByIdAndUpdate(
