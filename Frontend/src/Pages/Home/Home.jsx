@@ -1,59 +1,60 @@
 import React from "react";
 import { Card, Banner } from "../../Components/Comp_index";
 import {
-  card1,
-  card2,
-  card3,
-  card4,
-  card5,
-  card6,
-  card7,
-  card8,
+  cnic,
+  childRegCert,
+  POC,
+  deathCert,
+  Nicop,
+  birthCert,
+  smartCard,
+  familyReg,
 } from "../../assets/img_index.js";
 
 function Home() {
   const services = [
     {
-      img: card1,
-      title: "National Identity Card",
+      img: cnic,
+      title: "CNIC Registration/Renewal",
       desc: "National Identity Card (NIC) is issued to the citizens of Pakistan.",
     },
     {
-      img: card2,
-      title: "Juvenile Card",
+      img: childRegCert,
+      title: "Child Registration Certificate",
       desc: "Juvenile card is an identity card issued to children under the age of 18 years.",
     },
     {
-      img: card3,
+      img: POC,
       title: "Pakistan Origin Card",
       desc: "Pakistan Origin Card (POC) program endeavors to provide eligible foreigners.",
     },
     {
-      img: card4,
-      title: "Cancellation Certificate",
-      desc: "Cancellation Certificate (CC) program endeavors to provide Cancellation Certificate",
+      img: deathCert,
+      title: "Death Certificate",
+      desc: "Cancellation Certificate (CC) program endeavors to provide Cancellation Certificate.",
     },
     {
-      img: card5,
-      title: "National Identity Card for Overseas",
+      img: Nicop,
+      title: "NICOP Application",
       desc: "National Identity Card for Overseas Pakistanis is issued to the overseas of Pakistan.",
     },
     {
-      img: card6,
-      title: "Child Registration Certificate",
-      desc: "Child Registration Certificate is a means of registering a new born with your NADRA record",
+      img: birthCert,
+      title: "birth certification",
+      desc: "Child Registration Certificate is a means of registering a new born with your NADRA record.",
     },
     {
-      img: card7,
+      img: familyReg,
       title: "Family Registration Certificate",
-      desc: "Family Registration Certificate (FRC) is a means of being identified with NADRA’s record",
+      desc: "Family Registration Certificate (FRC) is a means of being identified with NADRA’s record.",
     },
     {
-      img: card8,
-      title: "Succession Certificate",
-      desc: "Succession Certificate and Letter of Administration is issued to successor on behalf of deceased person",
+      img: smartCard,
+      title: "Smart National Identity Card (SNIC)",
+      desc: "The Smart National Identity Card (SNIC) is a chip-based CNIC that offers enhanced security features and supports multi-purpose applications.",
     },
   ];
+
   return (
     <div>
       <Banner />

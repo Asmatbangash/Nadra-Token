@@ -76,20 +76,13 @@ export default function Login() {
                 />
                 <Input
                   placeholder="Password"
-                  className="bg-green-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-green-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                  className="bg-green-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-green-600 focus:outline-none focus:ring-1 focus:ring-green-500 transition ease-in-out duration-150"
                   name="password"
                   type="password"
                   value={formData.password}
                   onChange={handleChange}
                 />
                 <div className="flex items-center justify-between flex-wrap">
-                  <label
-                    className="text-sm text-gray-200 cursor-pointer"
-                    htmlFor="remember-me"
-                  >
-                    <Input className="mr-2" id="remember-me" type="checkbox" />
-                    Remember me
-                  </label>
                   <a
                     className="text-sm text-blue-400 hover:underline mb-0.5"
                     href="#"

@@ -32,9 +32,7 @@ export default function SignUp() {
         }
       );
       setFormData({ fullName: "", userName: "", email: "", password: "" });
-      toast.success(response?.data?.message || "Registration successful!", {
-        position: "top-center",
-      });
+      toast.success(response?.data?.message || "Registration successful!");
       setTimeout(() => {
         navigate("/");
         window.location.reload();

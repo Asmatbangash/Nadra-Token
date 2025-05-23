@@ -7,6 +7,7 @@ function Input({
   value,
   onChange,
   required,
+  readOnly,
   ...props
 }) {
   return (
@@ -16,8 +17,9 @@ function Input({
       type={type}
       value={value}
       onChange={onChange}
-      {...props}
       required={required}
+      readOnly={readOnly}
+      {...props}
     />
   );
 }

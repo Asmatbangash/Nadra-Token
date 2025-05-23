@@ -6,7 +6,7 @@ import {
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { MdGeneratingTokens } from "react-icons/md";
 import Button from "../Button/Button";
-import { NavLink, Link, useLocation } from "react-router-dom";
+import { NavLink, Link, useLocation, useNavigate } from "react-router-dom";
 import Login from "../../Pages/Login/Login";
 import { useContext } from "react";
 import { NadraTokenContext } from "../../Context/NadraTokenContext";
@@ -19,12 +19,15 @@ function classNames(...classes) {
 
 function Header() {
   const { user, role } = useContext(NadraTokenContext);
+  const navigate = useNavigate();
   const navigation = [
     { name: "Home", to: "/" },
     { name: "About", to: "/about" },
-    ...(user ? [{ name: "Tokens", to: "/tokens" }] : []),
+    ...(user ? [{ name: "My-Tokens", to: "/tokens" }] : []),
     { name: "Contact", to: "/contact-us" },
-    ...(role === "admin" ? [{ name: "Dashbaord", to: "/dashboard" }] : []),
+    ...(role === "admin"
+      ? [{ name: "Admin-Dashbaord", to: "/dashboard" }]
+      : []),
   ];
 
   const handlLogOut = async (e) => {
@@ -39,6 +42,7 @@ function Header() {
       );
       toast.success(response?.data?.message || "Logout successful!");
       setTimeout(() => {
+        navigate("/");
         window.location.reload();
       }, 3000);
     } catch (error) {

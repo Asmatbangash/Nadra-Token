@@ -1,33 +1,33 @@
-import card1 from "./album3.png";
-import card2 from "./album5.png";
-import card3 from "./album6.png";
-import card4 from "./album7.png";
-import card5 from "./JunilaCard.png";
-import card6 from "./NationalCard.png";
-import card7 from "./overses.png";
-import card8 from "./success.png";
-import line from "./line.jpg";
-import LoginPic from "./Login.jpg";
+import birthCert from "./BirthCert.jpeg";
+import childRegCert from "./childRegCer.png";
+import cnic from "./CNIC.png";
+import deathCert from "./deathCert.jpeg";
+import Nicop from "./Nicop.jpeg";
+import POC from "./POC.jpeg";
+import smartCard from "./SmartCard.png";
+import line from "./line.jpeg";
 import SignUpPic from "./SignUp.jpg";
 import onlineToken from "./onlineToken.jpg";
 import timePic from "./time.jpg";
 import bg from "./bg.jpeg";
 import line1 from "./line1.png";
+import warningGif from "./warning.gif";
+import familyReg from "./FamilyReg.png";
 
 export {
-  card1,
-  card2,
-  card3,
-  card4,
-  card5,
-  card6,
-  card7,
-  card8,
+  birthCert,
+  childRegCert,
+  cnic,
+  deathCert,
+  Nicop,
+  POC,
+  smartCard,
   line,
-  LoginPic,
   SignUpPic,
   onlineToken,
   timePic,
   bg,
   line1,
+  warningGif,
+  familyReg,
 };

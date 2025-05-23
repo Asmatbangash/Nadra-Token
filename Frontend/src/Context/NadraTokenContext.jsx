@@ -42,7 +42,7 @@ function ContextProvider({ children }) {
       }
     };
     fetchTokens();
-  }, [currentUserTokens]);
+  }, []);
 
   const [allToken, setAllToken] = useState([]);
   useEffect(() => {

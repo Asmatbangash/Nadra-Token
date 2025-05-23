@@ -11,22 +11,25 @@ const generateToken = asyncHandler(async (req, res, next) => {
   // if come then generate token
   // and then send response
 
-  const { fullName, fatherName, contactNo } = req.body;
+  const { fullName, fatherName, serviceType, contactNo } = req.body;
 
-  if ([fullName, fatherName, contactNo].some(field => field?.trim() === '')) {
+  if (
+    [fullName, fatherName, serviceType, contactNo].some(
+      field => field?.trim() === ''
+    )
+  ) {
     return res.status(400).json({ message: 'all fields are required' });
   }
 
-  const user = await User.findById(req.user?._id).select(
-    '-email -password -fullName'
-  );
+  const user = await User.findById(req.user?._id).select('-email -password');
   const latestToken = await Token.findOne().sort({ TokenNo: -1 });
   const TokenNo = latestToken ? latestToken.TokenNo + 1 : 1;
   const token = await Token.create({
     user: user,
-    Name: fullName,
-    FatherName: fatherName,
-    ContactNo: contactNo,
+    fullName: fullName,
+    fatherName: fatherName,
+    contactNo: contactNo,
+    serviceType: serviceType,
     TokenNo,
   });
 
@@ -66,9 +69,9 @@ const getAllTokenForAdmin = asyncHandler(async (req, res, next) => {
 // Update token detail
 const updateToken = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  const { Name, FatherName, ContactNo } = req.body;
+  const { fullName, fatherName, contactNo } = req.body;
 
-  if (!(Name || FatherName || ContactNo)) {
+  if (!(fullName || fatherName || contactNo)) {
     return res.status(400).json({ message: 'there are some error in update' });
   }
 
@@ -76,9 +79,9 @@ const updateToken = asyncHandler(async (req, res, next) => {
     id,
     {
       $set: {
-        Name: Name,
-        FatherName: FatherName,
-        ContactNo: ContactNo,
+        fullName,
+        fatherName,
+        contactNo,
       },
     },
     {
@@ -97,4 +100,23 @@ const updateToken = asyncHandler(async (req, res, next) => {
     );
 });
 
-export { generateToken, updateToken, getToken, getAllTokenForAdmin };
+// delete token
+const deleteToken = asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
+  if (!id) {
+    return res.status(400).json({ message: 'Token has been not delete' });
+  }
+  await Token.findByIdAndDelete(id, { new: true });
+
+  return res
+    .status(200)
+    .json(new apiResponse(200, {}, 'Token deleted successfully!'));
+});
+
+export {
+  generateToken,
+  updateToken,
+  deleteToken,
+  getToken,
+  getAllTokenForAdmin,
+};
