@@ -12,6 +12,7 @@ import { useContext } from "react";
 import { NadraTokenContext } from "../../Context/NadraTokenContext";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import { UserMenu } from "../Comp_index";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -56,18 +57,8 @@ function Header() {
   const location = useLocation();
   return (
     <>
-      <ToastContainer
-        position="top-center"
-        autoClose={1500}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
+      <ToastContainer position="top-center" autoClose={2000} theme="dark" />
+
       <Disclosure as="nav" className="bg-[#105b14]">
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-16 items-center justify-between">
@@ -116,13 +107,16 @@ function Header() {
                 </div>
               </div>
             </div>
-            <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 text-white space-x-3">
+            <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 text-white space-x-3 cursor-pointer">
               {user ? (
-                <Button
-                  text="LogOut"
-                  className="cursor-pointer flex items-cent border-1 border-b-lime-300 active:border active:border-lime-400 rounded-md duration-100 py-1 px-3"
-                  onClick={handlLogOut}
-                />
+                <>
+                  <Button
+                    text="LogOut"
+                    className="cursor-pointer flex items-cent border-1 border-b-lime-300 active:border active:border-lime-400 rounded-md duration-100 py-1 px-3"
+                    onClick={handlLogOut}
+                  />
+                  <UserMenu />
+                </>
               ) : (
                 <Button
                   text="Login"

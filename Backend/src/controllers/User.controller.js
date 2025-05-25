@@ -205,11 +205,11 @@ const changeCurrentUserPassword = asyncHandler(async (req, res) => {
 
   const isPasswordCorrect = await user.isPasswordCorrect(oldPassword);
   if (!isPasswordCorrect) {
-    return res.status(400).json({ message: 'invalid password' });
+    return res.status(400).json({ message: 'invalid old password' });
   }
 
-  req.user = newPassword;
-  user.save({ validateBeforeSave: false });
+  user.password = newPassword;
+  await user.save({ validateBeforeSave: false });
 
   return res
     .status(200)

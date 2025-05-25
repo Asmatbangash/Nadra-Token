@@ -19,18 +19,7 @@ function Banner() {
   };
   return (
     <>
-      <ToastContainer
-        position="top-center"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
+      <ToastContainer position="top-center" autoClose={2000} theme="dark" />
       <div
         className="hero min-h-screen"
         style={{

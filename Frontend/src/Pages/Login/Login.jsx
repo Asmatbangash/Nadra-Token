@@ -32,7 +32,7 @@ export default function Login() {
       setTimeout(() => {
         navigate("/");
         window.location.reload();
-      }, 2200);
+      }, 2000);
     } catch (error) {
       const errorMsg =
         error?.response?.data?.message ||
@@ -42,19 +42,8 @@ export default function Login() {
   };
 
   return (
-    <>
-      <ToastContainer
-        position="top-center"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
+    <div>
+      <ToastContainer position="top-center" autoClose={2000} theme="dark" />
       <dialog id="my_modal_3" className="modal">
         <div className="modal-box bg-green-800">
           <form method="dialog">
@@ -83,12 +72,6 @@ export default function Login() {
                   onChange={handleChange}
                 />
                 <div className="flex items-center justify-between flex-wrap">
-                  <a
-                    className="text-sm text-blue-400 hover:underline mb-0.5"
-                    href="#"
-                  >
-                    Forgot password?
-                  </a>
                   <p className="text-white mt-4">
                     {" "}
                     Don't have an account?{" "}
@@ -110,6 +93,6 @@ export default function Login() {
           </div>
         </div>
       </dialog>
-    </>
+    </div>
   );
 }

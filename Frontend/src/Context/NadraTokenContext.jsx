@@ -18,7 +18,7 @@ function ContextProvider({ children }) {
           "http://localhost:8000/api/v1/user/current-user",
           { withCredentials: true } // Include this if your route requires cookies
         );
-        setUser(response.data);
+        setUser(response.data?.data);
         setRole(response.data?.data?.role);
       } catch (error) {
         console.error("There was an error fetching the current user:", error);

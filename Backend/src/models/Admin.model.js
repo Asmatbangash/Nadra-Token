@@ -5,10 +5,12 @@ const adminSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
-  manageTokens: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Token',
-  },
+  manageTokens: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Token',
+    },
+  ],
 });
 
 export const Admin = mongoose.model('Admin', adminSchema);

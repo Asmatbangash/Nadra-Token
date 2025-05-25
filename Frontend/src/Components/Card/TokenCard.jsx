@@ -64,18 +64,8 @@ function TokenCard({ token, id }) {
 
   return (
     <>
-      <ToastContainer
-        position="top-center"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
+      <ToastContainer position="top-center" autoClose={2000} theme="dark" />
+
       <div className="relative min-w-72 hover:scale-105 duration-200 mx-6">
         <div className="absolute top-2 right-2 z-20">
           <div className="relative">

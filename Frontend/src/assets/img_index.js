@@ -13,6 +13,7 @@ import bg from "./bg.jpeg";
 import line1 from "./line1.png";
 import warningGif from "./warning.gif";
 import familyReg from "./FamilyReg.png";
+import userImg from "./userImg.png";
 
 export {
   birthCert,
@@ -30,4 +31,5 @@ export {
   line1,
   warningGif,
   familyReg,
+  userImg,
 };

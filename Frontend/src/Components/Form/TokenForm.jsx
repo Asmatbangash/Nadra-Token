@@ -61,18 +61,8 @@ export default function TokenForm() {
 
   return (
     <>
-      <ToastContainer
-        position="top-center"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
+      <ToastContainer position="top-center" autoClose={2000} theme="dark" />
+
       <dialog id="token-form" className="modal">
         <div className="modal-box bg-green-800">
           <form method="dialog">

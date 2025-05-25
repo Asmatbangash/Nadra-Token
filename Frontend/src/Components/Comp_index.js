@@ -7,6 +7,8 @@ import TokenForm from "./Form/TokenForm";
 import Input from "./InputFolder/Input";
 import TokenCard from "./Card/TokenCard";
 import Tekmark from "./svgs/Tekmark";
+import UserMenu from "./userMenu/UserMenu";
+import ChangePassword from "./change-password/ChangePassword";
 
 export {
   Header,
@@ -18,4 +20,6 @@ export {
   Input,
   TokenCard,
   Tekmark,
+  UserMenu,
+  ChangePassword,
 };
